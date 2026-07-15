@@ -25,7 +25,7 @@
 | — | 暂无 | — | — | — |
 
 ## 已知限制（darwin 指出，无法靠 skill 文件根治，诚实记录）
-- **V1 抗遗忘无强制**：每阶段重读 reference 是自律，长会话可能跳过。缓解=铁律自查+反模式清单；根治=hook（待用户决定）
-- **V2 隔离靠说服**：审查/裁判子代理带工具，物理上能越界读实现。缓解=禁令+反模式+可选 Explore只读agent；根治=沙箱/受限工具集
-- 第五道 hook 暂不上，先观察四道防线是否够用
+- **V1 抗遗忘**：✅ 已上 hook 缓解——`hooks/dev-flow-reminder.sh`（UserPromptSubmit，检测开发意图注入提醒，装于 ~/.claude/hooks/，settings.json 已配，测 20/20）。仍是"提醒"非"阻断"，非硬强制
+- **V2 隔离靠说服**：未根治（插件也解决不了：agent tools 白名单只限工具种类不限文件可见范围）。缓解=禁令+反模式+可选 Explore只读agent；根治需 permissions.deny 路径规则或 worktree，按需再上
+- 评估过"改成插件"：结论没必要（单机自用，插件只解决分发不解决强制/隔离），维持 skill 形态
 - ponytail 子代理不一定继承，靠 rules.md 保证精简原则

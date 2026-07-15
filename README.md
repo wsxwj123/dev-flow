@@ -39,6 +39,21 @@ dev-flow/
     └── rules.md          开发通用规则
 ```
 
+## 强制入口 hook（可选，让 AI 不漏走流程）
+
+`hooks/dev-flow-reminder.sh` 是一个 `UserPromptSubmit` hook：检测到开发意图的消息时，自动往对话里注入一句"先走 dev-flow"提醒。只提醒不阻断，非开发消息（写邮件、做总结、解释代码）静默放过。它对抗的是"长会话里 AI 凭记忆跳过流程"。
+
+安装：
+```bash
+mkdir -p ~/.claude/hooks
+cp hooks/dev-flow-reminder.sh ~/.claude/hooks/ && chmod +x ~/.claude/hooks/dev-flow-reminder.sh
+```
+然后在 `~/.claude/settings.json` 的 `hooks.UserPromptSubmit` 数组里追加一条：
+```json
+{ "hooks": [{ "type": "command", "command": "/Users/<你>/.claude/hooks/dev-flow-reminder.sh" }] }
+```
+撤销：删掉 settings.json 里这条 + 删脚本即可。
+
 ## 依赖
 
 宿主为 Claude Code。流程中引用的技能（grilling、neat-freak、frontend-design 等）缺失时对应步骤会降级为手动执行，不影响主干。

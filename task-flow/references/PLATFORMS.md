@@ -23,13 +23,13 @@
 
 > 别把版本号写死进流程（模型会换代）——用"高推理/高性价比"这两个角色词，具体映射只维护在本表。
 
-## 计划与合同确认（立项收尾让用户看 PLAN + CHECKLIST）
+## 计划与合同确认（立项收尾让用户看 计划分节 + CHECKLIST）
 
 | 平台 | 做法 |
 |---|---|
-| Claude Code | ExitPlanMode 出计划卡片（plan 模式）；非 plan 模式则停下、提醒用户看 `.taskflow/<任务>/PLAN.md` 和 `CHECKLIST.md` |
-| OpenCode | Plan 主 agent；或纯文字停下等确认 + 提醒看 PLAN.md / CHECKLIST.md |
-| Codex | 审批模式（approval modes）；或纯文字停下 + 提醒看 PLAN.md / CHECKLIST.md |
+| Claude Code | ExitPlanMode 出计划卡片（plan 模式）；非 plan 模式则停下、提醒用户看 `.taskflow/<任务>/PROJECT.md` 计划分节 和 `CHECKLIST.md` |
+| OpenCode | Plan 主 agent；或纯文字停下等确认 + 提醒看 PROJECT.md 计划分节 / CHECKLIST.md |
+| Codex | 审批模式（approval modes）；或纯文字停下 + 提醒看 PROJECT.md 计划分节 / CHECKLIST.md |
 
 > 卡点本质是"停下等用户确认"这个纯文字行为，任何平台都成立。计划卡片只是锦上添花。
 

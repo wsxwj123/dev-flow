@@ -1,0 +1,37 @@
+# 这两个 skill 是纯 markdown，没有代码可测。这个 CI 只做对纯文档项目
+# 有意义的最小检查，红了能说明真问题（frontmatter 缺失 / 引用指向不存在的文件）：
+#   1. 两个 skill 的 SKILL.md 都存在，且含 name + description 的 YAML frontmatter
+#   2. SKILL.md 里引用的 references/*.md 路径都真实存在（防死链）
+# 刻意不做 lint / 单测 / 浏览器这些用不上的东西。
+name: CI
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 检查 SKILL.md 与 references 引用
+        run: |
+          set -euo pipefail
+          fail=0
+          for skill in dev-flow task-flow; do
+            f="$skill/SKILL.md"
+            if [ ! -f "$f" ]; then
+              echo "缺失: $f"; fail=1; continue
+            fi
+            # frontmatter：第一行必须是 ---，且含 name: 和 description:
+            head -1 "$f" | grep -qx -- '---' || { echo "$f 缺 YAML frontmatter 起始 ---"; fail=1; }
+            grep -qE '^name:' "$f"        || { echo "$f frontmatter 缺 name"; fail=1; }
+            grep -qE '^description:' "$f" || { echo "$f frontmatter 缺 description"; fail=1; }
+            # 死链：提取 markdown 链接目标 (references/*.md)，验证文件存在
+            grep -oE '\(references/[^)]+\.md\)' "$f" | tr -d '()' | sort -u | while read -r ref; do
+              if [ ! -f "$skill/$ref" ]; then
+                echo "$f 引用了不存在的文件: $skill/$ref"; exit 1
+              fi
+            done || fail=1
+          done
+          [ "$fail" -eq 0 ] && echo "OK: frontmatter 和 references 引用都正常"
+          exit "$fail"

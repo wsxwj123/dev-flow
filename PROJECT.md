@@ -4,12 +4,16 @@
 > GitHub: https://github.com/wsxwj123/dev-flow（公开，SSH 别名 github.com-wsxwj123 推送）
 > 同步铁规：改 skill → commit → `cp -R <skill目录>/. ~/.claude/skills/<skill名>/` → push
 
-## task-flow 子项目（进行中）
+## task-flow 子项目（已发布 v1.0）
+
+> GitHub tag `task-flow-v1.0`（→6db2aec），安装目录 `~/.claude/skills/task-flow/` 已同步。完全自包含(自带 rules.md/PLATFORMS.md)。
 
 ### 阶段进度
 - 方案讨论完成 @dea3cac：v1草案→fable盲审(20条)→v2→opus替代范式(5个)→v3定论（task-flow-设计/ 全链路留档）
 - 01 立项：grilling 拷问完成（目录=同仓并列/名=task-flow/发布=推现仓/测试=6场景盲测），BRIEF.md 落盘
 - 卡点0(BRIEF确认)已确认 @2026-07-16：用户补两点——立项须含 grilling+opus头脑风暴补遗(遗漏/没想到的/安全)；合同来源三层(用户要求>技能缺口>类型模板)最终用户签字。已改进 BRIEF
+- 02-06 全过（详见待办 F2-F6），卡点1-4 均确认 @2026-07-16
+- 07 收尾：复盘已写(全局 ~/.learnings + 本地 LEARNINGS.md)、feature 分支已删(本地+远程)、现场已清理；仅剩用户实测(卡点5)未做
 
 ### 待办
 - [x] #F1 卡点0:BRIEF 用户确认 → 进 02 方案
@@ -18,15 +22,16 @@
 - [x] #F4 04 开发:fable代理写7文件587行(feature/task-flow);红队3回合/螺旋3圈/打回2轮落死
 - [x] #F5 05 验收:双裁判盲判34/34全过第1轮,ACCEPT-REPORT落盘;code-review判不适用(纯markdown)。GitHub推送规则并入两份rules.md并推送(master=ac1b95c,feature已推) 卡点3已确认 @2026-07-16
 - [x] #F6 06 发布:PR#1合并进master、CI绿、tag task-flow-v1.0(→6db2aec)、安装目录已同步。卡点4已确认(直接合并推送+建PR+推代码打tag+README加License和设计文档链接)@2026-07-16
-- [ ] #F7 07 收尾:用户实测 + 复盘
+- [~] #F7 07 收尾:复盘已写、分支已删、现场已清理、neat-freak 已同步;**仅剩用户实测(卡点5)**——已给实测提示词,用户开新会话验触发/让位/旋钮
 
-## dev-flow 子项目（已发布 v6）
+## dev-flow 子项目（已发布 v5）
 
 ## 阶段进度
 - v1（490db6e）：七阶段+五卡点+角色分离+rules 搬迁
 - v2（6e7972a）：盲审修复——LOCK 落盘、conftest 绕过核查、任务分级、接口物理隔离
 - v3（c618ee9）：并行 worktree、PROJECT.md 状态账本、05.5 安全审计、playwright 概念纠偏
-- v4（本轮）：注入防护（rules.md 数据边界声明+测试输出结构化回传）、darwin 评估修复（反模式清单、隔离诚实说明、任务分级就高不就低、篡改清单本质判据、INTERFACE 错误契约 gate）
+- v4：注入防护（rules.md 数据边界声明+测试输出结构化回传）、darwin 评估修复（反模式清单、隔离诚实说明、任务分级就高不就低、篡改清单本质判据、INTERFACE 错误契约 gate）
+- v5（120b09d，2026-07-16）：rules.md 增加《GitHub 推送与网络》通用规则（SSH别名/fake-ip处置顺序/HTTPS-EOF/失败已执行核实/多账号/失败上报）；安装目录已同步
 
 ## 待办
 - [x] #T1 darwin 评估 → 83.3/100，V1/V2 高危已缓解+诚实标注，V3-V10 已改或记入已知限制

@@ -1,8 +1,25 @@
-# PROJECT 状态账本 — dev-flow skill 自身开发
+# PROJECT 状态账本 — dev-flow / task-flow skill 开发
 
-> 唯一写者：主会话。这是 dev-flow skill 项目自己的状态账本（吃自己狗粮）。
+> 唯一写者：主会话。本仓含两个姐妹 skill 项目：dev-flow（已发布）+ task-flow（开发中）。
 > GitHub: https://github.com/wsxwj123/dev-flow（公开，SSH 别名 github.com-wsxwj123 推送）
-> 同步铁规：改 skill → commit → `cp -R dev-flow/. ~/.claude/skills/dev-flow/` → push
+> 同步铁规：改 skill → commit → `cp -R <skill目录>/. ~/.claude/skills/<skill名>/` → push
+
+## task-flow 子项目（进行中）
+
+### 阶段进度
+- 方案讨论完成 @dea3cac：v1草案→fable盲审(20条)→v2→opus替代范式(5个)→v3定论（task-flow-设计/ 全链路留档）
+- 01 立项：grilling 拷问完成（目录=同仓并列/名=task-flow/发布=推现仓/测试=6场景盲测），BRIEF.md 落盘，待用户确认
+
+### 待办
+- [ ] #F1 卡点0:BRIEF 用户确认 → 进 02 方案
+- [ ] #F2 02 方案:方案代理产出 skill 文件结构设计 + 盲审
+- [ ] #F3 03 测试设计:6 场景盲测 prompt 清单 + 锁定
+- [ ] #F4 04 开发:撰写 skill 文件
+- [ ] #F5 05 验收:裁判盲测
+- [ ] #F6 06 发布:README 更新 + 推送
+- [ ] #F7 07 收尾:用户实测 + 复盘
+
+## dev-flow 子项目（已发布 v6）
 
 ## 阶段进度
 - v1（490db6e）：七阶段+五卡点+角色分离+rules 搬迁

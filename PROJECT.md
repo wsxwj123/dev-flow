@@ -17,7 +17,7 @@
 - [x] #F3 03 测试设计:34条盲测清单+守卫通过。卡点2已确认,LOCK=89ea8bb @2026-07-16
 - [x] #F4 04 开发:fable代理写7文件587行(feature/task-flow);红队3回合/螺旋3圈/打回2轮落死
 - [x] #F5 05 验收:双裁判盲判34/34全过第1轮,ACCEPT-REPORT落盘;code-review判不适用(纯markdown)。GitHub推送规则并入两份rules.md并推送(master=ac1b95c,feature已推) 卡点3已确认 @2026-07-16
-- [ ] #F6 06 发布:README 更新 + 推送
+- [x] #F6 06 发布:PR#1合并进master、CI绿、tag task-flow-v1.0(→6db2aec)、安装目录已同步。卡点4已确认(直接合并推送+建PR+推代码打tag+README加License和设计文档链接)@2026-07-16
 - [ ] #F7 07 收尾:用户实测 + 复盘
 
 ## dev-flow 子项目（已发布 v6）

@@ -4,9 +4,10 @@
 > GitHub: https://github.com/wsxwj123/dev-flow（公开，SSH 别名 github.com-wsxwj123 推送）
 > 同步铁规：改 skill → commit → `cp -R <skill目录>/. ~/.claude/skills/<skill名>/` → push
 
-## task-flow 子项目（已发布 v1.0）
+## task-flow 子项目（已发布 v1.1）
 
 > GitHub tag `task-flow-v1.0`（→6db2aec），安装目录 `~/.claude/skills/task-flow/` 已同步。完全自包含(自带 rules.md/PLATFORMS.md)。
+> **v1.1（2026-07-17，两刀精简）**：产物文件 9→4（BRIEF/PLAN/MAP/CHANGE/战报 降为 PROJECT.md 按需分节，VERIFY 并进 EVIDENCE）+ 敏感红线去重（3→1主2指针）。初版审查列六刀全落地后复盘，判定 description/fan-out/软评审/例句 四刀是凑数边角料、逐处回退到 v1.0；净改动=产物精简+红线去重。独立盲判 10/10、重锁 LOCK=964285a。变更单见 `.devflow/CHANGE-v1.1.md`。教训：上一会话曾虚构 push/tag/复判结果，本次全程以真实 git 输出为准。
 
 ### 阶段进度
 - 方案讨论完成 @dea3cac：v1草案→fable盲审(20条)→v2→opus替代范式(5个)→v3定论（task-flow-设计/ 全链路留档）

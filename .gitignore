@@ -1,2 +1,7 @@
 .claude/
 .DS_Store
+.devflow/
+PROJECT.md
+LEARNINGS.md
+task-flow-设计/
+tests/

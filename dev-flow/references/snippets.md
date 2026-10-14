@@ -6,19 +6,19 @@
 
 照抄这段，把 N / K 换成下表的数；M 那句只给开发和测试设计代理贴，其他角色整句不贴：
 
-> 预算：工具调用不超过 N 次；最终报告不超过 K 字，报告格式按派工说明里的要求。只做本 prompt 列出的几处；不为了验证测试本身去搭假服务，不通读大文件。快到上限还没做完，就停下来交中间报告，说清做到哪、还差什么。
-> （开发、测试设计代理加这句）测试用例不超过 M 条。
+> 预算：工具调用不超过 N 次；最终报告不超过 K 字，报告格式按派工说明里的要求。只做本 prompt 列出的几处；只读派工清单里的文件，清单里的文件必须读完，清单外的不翻；不为了验证测试本身去搭假服务。快到上限还没做完，就停下来交中间报告，说清做到哪、还差什么。
+> （开发、测试设计代理加这句）测试用例不超过 M 条，超出要在报告里写理由。
 
 | 角色 | 工具调用上限 N | 测试条数上限 M | 报告上限 K |
 |---|---|---|---|
 | 调研+方案（中档合成一个代理） | 120 | 不贴 | 4000 字 |
 | 方案盲审 | 60 | 不贴 | 4000 字 |
 | 测试设计（只有标准档派） | 100 | 默认 30，超出要在 TEST-PLAN 里写理由 | 4000 字 |
-| 开发（每个代理） | 轻档 60 / 中档 120 / 标准档 200 | 轻档 15 | 3000 字 |
+| 开发（每个代理） | 轻档 60 / 中档 120 / 标准档 200 | 轻档 15 / 中档 25（标准档的测试由测试设计代理写，开发代理只写单测，不贴这句） | 3000 字 |
 | 裁判 | 60；skill 项目按测试 prompt 条数乘 10 | 不贴 | 3000 字 |
 | 安全审计 | 60 | 不贴 | 4000 字 |
 
-用完了怎么办：代理交了中间报告之后，同一轮续用它再给一份同样的预算，不算跨轮；连续两次用完还没做完，停下向用户汇报。
+用完了怎么办：代理交了中间报告之后，同一轮续用它再给一份同样的预算，不算跨轮；连续两次用完还没做完，停下向用户汇报。续用同一个开发代理做下一项任务时，预算重新给一份，禁令重贴一遍。
 
 为什么限的是工具调用次数不是 token：代理自己数不准用了多少 token，但每次调用都数得清。这条没有机械保证，靠代理自觉，所以 token 由主会话在每个代理返回时按工具报回来的用量记一行进 `.devflow/HISTORY.md`，事后能对账。
 
@@ -43,9 +43,13 @@ git rev-parse -q --verify origin/HEAD >/dev/null || { git remote get-url origin 
 pytest tests/acceptance -q --junitxml=.devflow/junit-<任务名>.xml 2>&1 | tee .devflow/test-output-<任务名>.txt
 # jest
 npx jest --json --outputFile=.devflow/jest-<任务名>.json 2>&1 | tee .devflow/test-output-<任务名>.txt
-# playwright
-npx playwright test --reporter=json 2>&1 | tee .devflow/test-output-<任务名>.txt > .devflow/pw-<任务名>.json
+# playwright（用环境变量指定 json 落点，别用重定向，stderr 会混进 json）
+PLAYWRIGHT_JSON_OUTPUT_NAME=.devflow/pw-<任务名>.json npx playwright test --reporter=json 2>&1 | tee .devflow/test-output-<任务名>.txt
+# 全量回归（含单测）：同样的命令把目录换成整个测试目录，报告文件加 -full 后缀，例如
+pytest -q --junitxml=.devflow/junit-<任务名>-full.xml 2>&1 | tee .devflow/test-output-<任务名>-full.txt
 ```
+
+其他框架（node test、go test、cargo test）没有 junit 输出的，用它们的 `-json` 或 `-v` 输出落盘，计数从落盘文件里 grep，口径一样：不凭记忆、不凭屏幕上滚过的内容估。
 
 然后从报告文件里抄数，不凭 stdout 估。junit 的总数在文件头：
 
@@ -60,7 +64,7 @@ jest 的 json 看 `numPassedTests / numFailedTests / numPendingTests` 和 `testR
 1. 通过 / 失败 / 跳过各几条
 2. 失败用例清单：用例名 + 断言信息各一行
 3. 每条跳过的用例和它的跳过原因（一条都不许省，跳过是最容易藏问题的地方）
-4. 全量回归结果（通过 / 失败 / 跳过计数）和锁定核查结果（LOCK 文件值等于账本值、LOCK 在当前 HEAD 的历史里、`tests/acceptance/` 的 diff 为空、测试运行环境没被改）
+4. 全量回归结果（从 -full 报告抄：通过 / 失败 / 跳过计数）和锁定核查结果（锁的 git 推导值、LOCK 文件值、账本值三者一致，锁在当前 HEAD 的历史里，`tests/acceptance/` 的 diff 为空，测试运行环境没被改）
 5. 实点 / 真调结果
 
 末尾列出原始输出文件和报告文件的路径，裁判只许 grep 对照，并抽一处计数和原始输出对一对。

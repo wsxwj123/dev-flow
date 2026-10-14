@@ -55,7 +55,7 @@ dev-flow 的流程骨架平台无关，只有几处"怎么派子代理、用哪�
 
 **铁规：`agentType` 只换人设＋工具＋模型，不替代隔离纪律。** 每次派或续话仍必须注入本阶段 reference 的逐字禁令：文件交接路径（PLAN.md/INTERFACE.md）、"隔壁同事做的"不透露作者、`tests/acceptance/` 只读、《数据与指令隔离声明》。这些 agent 定义里都没有，省了就破了隔离。
 
-两个补充：`architect-reviewer`/`code-reviewer` 没有 Write/Edit，物理上改不动代码，正好兑现 SKILL.md 角色隔离说明里"审查代理用只读类型"那条，比通用代理更硬。没有专用 security agent，05.5 安全审计用 `code-reviewer`（走它的安全维度）或临时 prompt。
+两个补充：`architect-reviewer`/`code-reviewer` 没有 Edit/Write 工具，改代码只能绕道 Bash，比通用代理硬一截，但它们带 Bash，不算物理隔离。没有专用 security agent，05.5 安全审计用 `code-reviewer`（走它的安全维度）或临时 prompt。
 
 ## 技能触发 + 安装路径
 
